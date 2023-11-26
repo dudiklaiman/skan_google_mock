@@ -3,7 +3,7 @@ from sqlalchemy.sql import func
 
 
 class MockHistoryModel(db.Model):
-    __tablename__ = "scan_mock_history"
+    __tablename__ = "skan_mock_history"
 
     id = db.Column(db.Integer, primary_key=True)
     srn = db.Column(db.String, nullable=False)

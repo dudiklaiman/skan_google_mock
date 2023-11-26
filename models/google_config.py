@@ -3,7 +3,7 @@ from sqlalchemy.sql import func
 
 
 class GoogleConfigModel(db.Model):
-    __tablename__ = "scan_mock_google_config"
+    __tablename__ = "skan_mock_google_config"
 
     id = db.Column(db.Integer, primary_key=True)
     google_path = db.Column(db.String, nullable=False)
