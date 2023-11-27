@@ -10,7 +10,7 @@ def create_app():
     app = Flask(__name__)
 
     app.config["PROPAGATE_EXCEPTIONS"] = True
-    app.config["API_TITLE"] = "Students REST API"
+    app.config["API_TITLE"] = "SKAN google mock"
     app.config["API_VERSION"] = "v1"
     app.config["OPENAPI_VERSION"] = "3.1.0"
     app.config["OPENAPI_URL_PREFIX"] = "/"

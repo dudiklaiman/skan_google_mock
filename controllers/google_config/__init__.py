@@ -1,0 +1,4 @@
+from controllers.google_config.google_config_get import google_config_get
+from controllers.google_config.google_config_post import google_config_post
+from controllers.google_config.google_config_put import google_config_put
+from controllers.google_config.google_config_delete import google_config_delete

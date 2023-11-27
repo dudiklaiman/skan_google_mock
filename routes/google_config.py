@@ -1,27 +1,26 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from schemas import GoogleConfigSchema
-from operations.google_config import google_config_get, google_config_post
+from schemas import *
+from controllers.google_config import *
 
 
-blp = Blueprint('google_data', __name__, description='Google DATA related operations')
+blp = Blueprint('data', __name__, description='Google DATA related controllers')
 
 
 @blp.route("/google_data/data")
 class GoogleConfig(MethodView):
-    @staticmethod
-    def get():
-        return google_config_get()
+    @blp.arguments(GoogleConfigSchemaGet)
+    def get(self, body_data):
+        return google_config_get(body_data)
 
-    @staticmethod
-    @blp.arguments(GoogleConfigSchema)
-    def post(config_data):
-        return google_config_post(config_data)
+    @blp.arguments(GoogleConfigSchemaPost)
+    def post(self, body_data):
+        return google_config_post(body_data)
 
-    @staticmethod
-    def patch():
-        pass
+    @blp.arguments(GoogleConfigSchemaPut)
+    def put(self, body_data):
+        return google_config_put(body_data)
 
-    @staticmethod
-    def delete():
-        pass
+    @blp.arguments(GoogleConfigSchemaDelete)
+    def delete(self, body_data):
+        return google_config_delete(body_data)
