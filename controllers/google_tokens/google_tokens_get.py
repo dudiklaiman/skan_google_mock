@@ -1,19 +1,18 @@
 from flask_smorest import abort
 from models import GoogleTokensModel
+from services import is_valid_dict
 
 
-def google_tokens_get(body_data):
-    if 'app_id' in body_data:
-        result = GoogleTokensModel.query.filter_by(app_id=body_data['app_id']).first()
-        if not result:
-            abort(404, message="No matching app_id found")
-        return {'access_token': result.access_token}
+def google_tokens_get(params_data):
+    valid_keys = ('app_id', 'network_user_id', 'access_token')
 
-    elif 'access_token' in body_data:
-        result = GoogleTokensModel.query.filter_by(access_token=body_data['access_token']).first()
-        if not result:
-            abort(404, message="No matching access_token found")
-        return {'app_id': result.app_id}
+    is_valid, invalid_key = is_valid_dict(params_data, valid_keys)
+    if not is_valid:
+        abort(400, message=f"Invalid key: '{invalid_key}'")
 
-    else:
-        abort(400, message="Invalid token_data")
+    data = GoogleTokensModel.query.filter_by(**params_data).all()  # same as: filter_by(app_id=body_data['app_id'], ...)
+    if not data:
+        abort(404, message="No matching key found")
+
+    result_list = [{'app_id': item.app_id, 'network_user_id': item.network_user_id, 'access_token': item.access_token} for item in data]
+    return result_list
