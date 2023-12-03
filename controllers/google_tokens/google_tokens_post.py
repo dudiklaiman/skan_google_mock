@@ -6,7 +6,7 @@ from models import GoogleTokensModel
 
 def google_tokens_post(body_data):
     try:
-        existing = GoogleTokensModel.query.filter_by(app_id=body_data['app_id'], network_user_id=body_data['network_user_id'], access_token=body_data['access_token']).first()
+        existing = GoogleTokensModel.query.filter_by(**body_data).first()
         if existing:
             db.session.delete(existing)
 

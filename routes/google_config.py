@@ -1,10 +1,7 @@
 from flask.views import MethodView
-from flask_smorest import Blueprint
+from routes.blueprints import google_config_blp as blp
 from schemas import *
 from controllers.google_config import *
-
-
-blp = Blueprint('data', __name__, description='Google DATA related controllers')
 
 
 @blp.route("/google_data/data")

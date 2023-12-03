@@ -1,11 +1,8 @@
 from flask import request
 from flask.views import MethodView
-from flask_smorest import Blueprint
+from routes.blueprints import token_mapping_blp as blp
 from schemas import GoogleTokensSchemaPost
 from controllers.google_tokens import *
-
-
-blp = Blueprint('token_mapping', __name__, description='Google token related controllers')
 
 
 @blp.route("/google_data/token_mapping")
