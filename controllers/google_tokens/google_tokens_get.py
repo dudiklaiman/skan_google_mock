@@ -1,9 +1,10 @@
 from flask_smorest import abort
 from models import GoogleTokensModel
-from services import is_valid_dict
+from services.services import is_valid_dict
 
 
-def google_tokens_get(params_data):
+def google_tokens_get(request):
+    params_data = dict(request.args)
     valid_keys = ('app_id', 'network_user_id', 'access_token')
 
     is_valid, invalid_key = is_valid_dict(params_data, valid_keys)

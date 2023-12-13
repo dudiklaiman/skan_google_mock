@@ -6,6 +6,7 @@ from db import db
 from routes.google_config import blp as google_config_bl
 from routes.google_tokens import blp as google_tokens_bl
 from routes.oauth2 import blp as oauth2_bl
+from routes.customers import blp as customers_bl
 
 
 def create_app():
