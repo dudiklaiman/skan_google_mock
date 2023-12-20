@@ -2,17 +2,16 @@ import json
 from models import GoogleConfigModel
 
 
-def google_config_get(body_data):
-    paths = list(body_data.values())
-    fix_path = '.'.join(paths)
+def google_config_get(s):
+    """
+    will return value according to given path.
+    path can contain between 1 param(app_id) to all params(app_id+network_user_id+customer_id+customer_client+bucket_id)
+    """
 
-    if body_data:
-        data = GoogleConfigModel.query.filter_by(google_path=fix_path)
+    if not s == "all":
+        data = GoogleConfigModel.query.filter_by(google_path=s)
     else:
         data = GoogleConfigModel.query.all()
-    all_data = []
-
-    for item in data:
-        all_data.append({"google_path": item.google_path, "value": json.loads(item.value)})
+    all_data = [{"google_path": item.google_path, "value": json.loads(item.value)} for item in data]
 
     return all_data

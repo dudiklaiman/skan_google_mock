@@ -5,7 +5,7 @@ from models import GoogleConfigModel
 
 
 def google_config_delete(body_data):
-    paths = [body_data['app_id'], body_data['google_account'], body_data['google_campaign_id']]
+    paths = [body_data['app_id'], body_data['network_user_id'], body_data['customer_id'], body_data['customer_client'], body_data['bucket_id']]
     length = len(paths) - 1
     fix_path = []
     for _ in paths[:]:

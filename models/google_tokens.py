@@ -8,6 +8,7 @@ class GoogleTokensModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     app_id = db.Column(db.String, nullable=False)
     network_user_id = db.Column(db.String, nullable=False)
-    access_token = db.Column(db.String, nullable=False)
-    last_update = db.Column(db.DateTime(timezone=True), onupdate=func.now())
+    long_live_token = db.Column(db.String, nullable=False)
+    short_live_token = db.Column(db.String, nullable=True)
+    last_update = db.Column(db.DateTime(timezone=True), default=func.now(), onupdate=func.now())
     

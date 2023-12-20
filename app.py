@@ -1,15 +1,22 @@
 from flask import Flask
 from flask_smorest import Api
 from flask_migrate import Migrate
-from routes.blueprints import *
 from db import db
-from routes.google_config import blp as google_config_bl
-from routes.google_tokens import blp as google_tokens_bl
-from routes.oauth2 import blp as oauth2_bl
-from routes.customers import blp as customers_bl
+from routes.google_config import blp as google_config_blp
+from routes.google_tokens import blp as google_tokens_blp
+from routes.google_apis import blp as google_apis_blp
 
 
 def create_app():
+    """
+    before running app run commands:
+    Flask db init
+    Flask db migrate
+    Flask db upgrade
+    Flask run
+    service(and db) and swagger definition and initiation
+    :return:
+    """
     app = Flask(__name__)
 
     app.config["PROPAGATE_EXCEPTIONS"] = True
@@ -23,11 +30,12 @@ def create_app():
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.init_app(app)
-    migrate = Migrate(app, db)
+    # migrate = Migrate(app, db)
+    Migrate(app, db)
 
     api = Api(app)
-    api.register_blueprint(skan_blp)
+    api.register_blueprint(google_apis_blp)
+    api.register_blueprint(google_tokens_blp)
     api.register_blueprint(google_config_blp)
-    api.register_blueprint(token_mapping_blp)
 
     return app

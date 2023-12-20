@@ -4,7 +4,7 @@ from models import GoogleConfigModel
 
 
 def google_config_put(body_data):
-    keys = ("app_id", "google_account", "google_campaign_id")
+    keys = ("app_id", "network_user_id", "customer_id", "customer_client", "campaign_id")
     my_dict = {key: body_data[key] for key in keys}
     paths = list(my_dict.values())
     fix_path = '.'.join(paths)

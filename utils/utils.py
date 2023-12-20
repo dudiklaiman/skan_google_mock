@@ -22,9 +22,12 @@ def generate_slt(llt, length):
 
 
 def save_history(request, request_url, response, status, srn='dummy_srn'):
+    invalid_header_keys = ('User-Agent', 'Accept', 'Postman-Token', 'Host', 'Accept-Encoding', 'Connection')
+    filtered_request = {key: value for key, value in request.items() if key not in invalid_header_keys}
+
     save = {
         'srn': srn,
-        'request': request if isinstance(request, str) else json.dumps(request),  # IF THE REQUEST IS STRING, LEAVES IT AS IS, IF NOT, CONVERTS TO STRING.
+        'request': request if isinstance(request, str) else json.dumps(filtered_request),  # IF THE REQUEST IS STRING, LEAVES IT AS IS, IF NOT, CONVERTS TO STRING.
         'request_url': request_url,
         'response': response if isinstance(response, str) else json.dumps(response),  # SAME AS REQUEST
         'status': status
@@ -35,4 +38,4 @@ def save_history(request, request_url, response, status, srn='dummy_srn'):
         db.session.commit()
 
     except SQLAlchemyError:
-        abort(400, message="An error occurred while adding token")
+        abort(500, message="An error occurred while saving log to the database")
