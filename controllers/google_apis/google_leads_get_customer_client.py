@@ -13,12 +13,14 @@ def google_leads_get_customer_client(req_data, version, id):
     # check if version is not 15
     if version != '15':
         abort(400, message="wrong version")
-    token_data = GoogleTokensModel.query.filter_by(access_token=req_data['Authorization'].split(" ")[0]).first()
+
+    token_data = GoogleTokensModel.query.filter_by(short_live_token=req_data['Authorization'].split(" ")[0]).first()
 
     # if Login-Customer-Id exist in headers it means that param id is customer client id
     if "Login-Customer-Id" in list(req_data.keys()):
         fix_path = "{}.{}.{}.{}".format(token_data.app_id, token_data.network_user_id, req_data['Login-Customer-Id'],
                                         id)
+        print(fix_path)
 
     # if not exist it means that param id is customer id
     else:
@@ -51,7 +53,7 @@ def google_leads_get_customer_client(req_data, version, id):
             },
                 "campaign": {
                     "appCampaignSetting": {"appId": token_data.app_id},
-                    "name": bucket_data_dict["name"],
+                    # "name": bucket_data_dict["name"],
                     "resourceName": f"customers/{id}/campaigns/{json.loads(item.value)}",
                     "id": json.loads(item.value)
                 },

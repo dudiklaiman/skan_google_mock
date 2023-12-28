@@ -15,5 +15,11 @@ def google_tokens_get(request):
     if not data:
         abort(404, message="No matching data found")
 
-    result_list = [{'app_id': item.app_id, 'network_user_id': item.network_user_id, 'long_live_token': item.long_live_token, 'short_live_token': item.short_live_token} for item in data]
+    result_list = [{
+        'app_id': item.app_id,
+        'network_user_id': item.network_user_id,
+        'long_live_token': item.long_live_token,
+        'short_live_token': item.short_live_token
+    } for item in data]
+
     return result_list

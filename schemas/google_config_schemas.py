@@ -38,7 +38,9 @@ class GoogleConfigSchemaPost(ValuesSchema):
     # default value network user id
     customer_client = fields.Str(required=False, default=app_id)
     # default app id + network user id
-    campaign_id = fields.Str(required=False, default=f"{network_user_id}{app_id}")
+    campaign_id = fields.Str(
+        required=False,
+        default=f"{network_user_id}{app_id}")
 
 
 class GoogleConfigSchemaPut(ValuesSchema):
@@ -47,8 +49,6 @@ class GoogleConfigSchemaPut(ValuesSchema):
     customer_id = fields.Str(required=True)
     customer_client = fields.Str(required=True)
     campaign_id = fields.Str(required=True)
-
-
 class GoogleConfigSchemaDelete(Schema):
     app_id = fields.Str(required=True)
     network_user_id = fields.Str(required=True)
